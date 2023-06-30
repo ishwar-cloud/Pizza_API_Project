@@ -1,6 +1,5 @@
 ﻿using API_Project.Models;
 using API_Project.Models.Manager;
-using MongoDB.Driver;
 
 namespace API_Project.Interface
 {

@@ -1,12 +1,10 @@
-﻿using API_Project.Models;
-using Microsoft.Extensions.Options;
-using MongoDB.Driver;
-using MongoDB.Bson;
-using System.Runtime.CompilerServices;
+﻿using API_Project.Exceptions;
 using API_Project.Interface;
+using API_Project.Models;
 using API_Project.Models.Manager;
-using API_Project.Exceptions;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
+using Microsoft.Extensions.Options;
+using MongoDB.Bson;
+using MongoDB.Driver;
 
 namespace API_Project.DataCollection
 {
@@ -33,7 +31,12 @@ namespace API_Project.DataCollection
 
         }
 
-        // Find the user details bases on email in User document
+        /// <summary>
+        /// Find the user details bases on email in User document
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        /// <exception cref="UserNotFound"></exception>
         public User GetUserDetails(string email)
         {
              User user =  _customer.Find(x => x.Email == email).FirstOrDefault(); 
@@ -47,24 +50,39 @@ namespace API_Project.DataCollection
             }
         }
 
-        // Adding the some information of user to LoginUser Document
+        /// <summary>
+        /// Adding the some information of user to LoginUser Document
+        /// </summary>
+        /// <param name="user"></param>
         public void AddUser(LoginUser user)
         {
             _userData.InsertOne(user);
         }
 
-        //Adding New User details to Document
+        /// <summary>
+        /// Adding New User details to Document
+        /// </summary>
+        /// <param name="user"></param>
         public void InsetDetaislToUser(User user)
         {
              _customer.InsertOne(user);
         }
 
-         // Find The Menu Details along with Pizza and topping 
+         /// <summary>
+         /// Find The Menu Details along with Pizza and topping 
+         /// </summary>
+         /// <returns></returns>
         public ICollection<Menu> GetMenu()
         {
             return _menuData.Find(_ => true).ToList();     
         }
-        // Find the user details and order details from LoginUser Document
+        /// <summary>
+        /// 
+        /// Find the user details and order details from LoginUser Document
+        /// </summary>
+        /// <param name="User_Id"></param>
+        /// <returns></returns>
+        /// <exception cref="UserNotFound"></exception>
         public LoginUser GetOrderDetailsWithUser(string User_Id)
         {
             LoginUser user = _userData.Find(a => a.User_Id == User_Id).FirstOrDefault();
@@ -81,34 +99,54 @@ namespace API_Project.DataCollection
            
         }
 
-        //get the MenuId 
+
+        /// <summary>
+        /// get the MenuId 
+        /// </summary>
+        /// <returns></returns>
         public Menu GetMenuID()
         {
             return _menuData.Find(_ => true).FirstOrDefault();
         }
 
-        // add the order details to OrderList which is define in the loginUser class
-        // and replace the details in Userdata Document  
+
+        /// <summary>
+        /// add the order details to OrderList which is define in the loginUser class
+        /// and replace the details in Userdata Document  
+        /// </summary>
+        /// <param name="user"></param>
+        
         public void AddOrder(LoginUser user)
         {
             _userData.FindOneAndReplace(a => a.User_Id == user.User_Id, user);      
         }
     
-        // get the All order of Of user
+        /// <summary>
+        /// get the All order of Of user
+        /// </summary>
+        /// <returns></returns>
         public List<LoginUser> ViewAllOrder()
         {
             return _userData.Find(new BsonDocument()).ToList();
         }
 
-        //this method is used to add the updateddetails of order
-        ///which is made by manger details of order 
+        /// <summary>
+        /// this method is used to add the updateddetails of order
+        /// which is made by manger details of order 
+        /// </summary>
+        /// <param name="loginUser"></param>
+
         public void UpdateTheOrderStatus(LoginUser loginUser)
         {
              _userData.FindOneAndReplace(x => x.User_Id == loginUser.User_Id,loginUser);
         }
 
 
-        //to get the manager details based on username
+        /// <summary>
+        /// to get the manager details based on username
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
         public Manager GetManagerDetails(string username )
         {
             return _manager.Find(x => x.username == username).FirstOrDefault();

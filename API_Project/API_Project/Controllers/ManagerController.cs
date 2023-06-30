@@ -2,7 +2,6 @@
 using API_Project.Interface;
 using API_Project.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API_Project.Controllers
@@ -17,7 +16,12 @@ namespace API_Project.Controllers
             this._managerService = managerService;
         }
 
-        //for manager Login
+        /// <summary>
+        /// for manager Login
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         [HttpPost("login")]
         public IActionResult Login([FromQuery] string username, [FromQuery] string password)
         {
@@ -44,7 +48,10 @@ namespace API_Project.Controllers
             return Ok("Jwt Token " + JwtToken);
         }
 
-        // for View all order 
+        /// <summary>
+        /// for View all order 
+        /// </summary>
+        /// <returns></returns>
         [Authorize(Roles = "manager")]
         [HttpGet("viewAllOrder")]
         public IActionResult ViewAllOrder()
@@ -52,7 +59,12 @@ namespace API_Project.Controllers
             return Ok(_managerService.ViewAllOrder());
         }
 
-        //used for manage the order 
+        /// <summary>
+        /// used for manage the order 
+        /// </summary>
+        /// <param name="order_Id"></param>
+        /// <param name="order_Status"></param>
+        /// <returns></returns>
 
         [Authorize(Roles ="manager")]
         [HttpGet("manageOrder")]
@@ -69,7 +81,11 @@ namespace API_Project.Controllers
         }
       
 
-        // to get the order details
+        /// <summary>
+        /// to get the order details
+        /// </summary>
+        /// <param name="order_Id"></param>
+        /// <returns></returns>
         [Authorize(Roles ="manager")]
         [HttpGet("orderDetails")]
         public IActionResult OrderDetails( string order_Id)

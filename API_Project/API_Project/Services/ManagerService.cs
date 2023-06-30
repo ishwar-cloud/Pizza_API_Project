@@ -1,12 +1,7 @@
-﻿using API_Project.DataCollection;
-using API_Project.Exceptions;
+﻿using API_Project.Exceptions;
 using API_Project.Interface;
 using API_Project.Models;
 using API_Project.Models.Manager;
-using Jose;
-using Microsoft.EntityFrameworkCore.Storage;
-using Microsoft.Identity.Client;
-using MongoDB.Driver;
 
 namespace API_Project.Services
 {
@@ -23,7 +18,14 @@ namespace API_Project.Services
            
         }
 
-       // this method for used to login the manger 
+       /// <summary>
+       /// this method for used to login the manger 
+       /// </summary>
+       /// <param name="username"></param>
+       /// <param name="password"></param>
+       /// <returns></returns>
+       /// <exception cref="UserNotFound"></exception>
+       /// <exception cref="IncorrectCredential"></exception>
 
         public string ManagerLogin(string username, string password)
         {
@@ -53,7 +55,10 @@ namespace API_Project.Services
             }
         }
 
-        // this methos used for View all order 
+        /// <summary>
+        /// this methos used for View all order 
+        /// </summary>
+        /// <returns></returns>
         public List<OrderDetails> ViewAllOrder()
         {
             //to store the details of order
@@ -71,9 +76,15 @@ namespace API_Project.Services
             }
             return orders;
         }
-   
-        // To manage the order and its status
-        // takin order_id and order_status as parameter
+
+        /// <summary>
+        /// To manage the order and its status
+        /// takin order_id and order_status as parameter
+        /// </summary>
+        /// <param name="order_id"></param>
+        /// <param name="orderStatus"></param>
+        /// <exception cref="OrderNotFound"></exception>
+
         public void ManageOrder(string order_id, string orderStatus)
         {
             // fetch all orders and store in allOrder
@@ -105,7 +116,12 @@ namespace API_Project.Services
 
         }
 
-        // used for to get all OrderDetails 
+        /// <summary>
+        /// used for to get all OrderDetails 
+        /// </summary>
+        /// <param name="order_id"></param>
+        /// <returns></returns>
+        /// <exception cref="OrderNotFound"></exception>
         public OrderDetails OrderDetails(string order_id)
         {
 

@@ -1,13 +1,8 @@
 ﻿using API_Project.Exceptions;
 using API_Project.Interface;
 using API_Project.Models;
-using API_Project.Services;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.AspNetCore.Mvc.TagHelpers;
-using System.Collections.Generic;
 
 namespace API_Project.Controllers
 {
@@ -27,7 +22,11 @@ namespace API_Project.Controllers
         }
 
 
-        // for User Registration
+        /// <summary>
+        /// for User Registration
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         [HttpPost("signUp")]
         public IActionResult Register(User user)
         {
@@ -47,7 +46,12 @@ namespace API_Project.Controllers
             return StatusCode(500, "Server Error");
         }
 
-        // For User Login
+        /// <summary>
+        /// For User Login
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
       
         [HttpPost("login")]
 
@@ -78,7 +82,11 @@ namespace API_Project.Controllers
             return Ok("Jwt Token " + JwtToken);
         }
 
-        //for to get the password
+        /// <summary>
+        /// for to get the password
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
         [Authorize(Roles = "user")]
         [HttpPost("forgetpassword")]
         public IActionResult ForgetPassword([FromQuery] string email)
@@ -103,7 +111,10 @@ namespace API_Project.Controllers
             return Ok(" Your password is :" + password);
         }
        
-       //For view the Pizza Menu
+       /// <summary>
+       /// For view the Pizza Menu
+       /// </summary>
+       /// <returns></returns>
         [Authorize(Roles ="user")]
         [HttpGet("ViewMenu")]
         public IActionResult ViewMenu()
@@ -116,7 +127,11 @@ namespace API_Project.Controllers
 
              
         
-        //for to create the order
+        /// <summary>
+        /// for to create the order
+        /// </summary>
+        /// <param name="order"></param>
+        /// <returns></returns>
         [Authorize(Roles ="user")]
         [HttpPost("createOrder")]
 
@@ -142,7 +157,11 @@ namespace API_Project.Controllers
             return Ok("Your Order Id is :"+id);
         }
 
-        // for track the order status
+        /// <summary>
+        /// for track the order status
+        /// </summary>
+        /// <param name="orderId"></param>
+        /// <returns></returns>
         [Authorize(Roles ="user")]
         [HttpGet("trackOrder")]
         public IActionResult TrackOrder([FromQuery] string orderId)
@@ -159,7 +178,11 @@ namespace API_Project.Controllers
             return Ok(order);
         }
 
-        // for view OrderHistory
+        /// <summary>
+        /// for view OrderHistory
+        /// </summary>
+        /// <param name="orderId"></param>
+        /// <returns></returns>
 
         [Authorize(Roles ="user")]
         [HttpGet("viewOrderHistory")]

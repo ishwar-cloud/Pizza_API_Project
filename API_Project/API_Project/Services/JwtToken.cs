@@ -17,7 +17,12 @@ namespace API_Project.Services
             this._config = config;
         }
 
-       //method for user to create token
+       /// <summary>
+       /// method for user to create token
+       /// </summary>
+       /// <param name="email"></param>
+       /// <param name="role"></param>
+       /// <returns></returns>
         public string CreateToken(string email,string role)
         {
             var claims = new List<Claim>();

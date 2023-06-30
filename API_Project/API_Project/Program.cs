@@ -23,7 +23,7 @@ builder.Services.AddTransient<IMongoDbContext, MongoDbContext>(); // For MongoDb
 builder.Services.AddTransient<IInserDataToDB, InsertDataToDb>(); // for Insertdata interface and its class
 
 
-builder.Services.AddDbContext<UserDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("PizzaConnStr")));
+
 
 //configuring a MongoDB setting
 builder.Services.Configure<MongoDBSetting>(

@@ -1,12 +1,6 @@
 ﻿using API_Project.Exceptions;
-
-using API_Project.Models;
-using API_Project.DataCollection;
-using Microsoft.Identity.Client;
 using API_Project.Interface;
-
-using Azure;
-using ZstdSharp.Unsafe;
+using API_Project.Models;
 
 namespace API_Project.Services
 {
@@ -28,8 +22,14 @@ namespace API_Project.Services
             this._jwtToken = jwtToken;
         }
 
-        //user For new user Registration
-        //taking User object as parameter for rgistration
+        /// <summary>
+        /// user For new user Registration
+        /// taking User object as parameter for rgistration
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        /// <exception cref="UserAlreadyExist"></exception>
+
         public bool Register(User user)
         {
             // check user is Aready exits or not
@@ -70,7 +70,14 @@ namespace API_Project.Services
             return true;
         }
 
-        // user for login the user 
+        /// <summary>
+        /// user for login the user 
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        /// <exception cref="UserNotFound"></exception>
+        /// <exception cref="IncorrectCredential"></exception>
         public string Login(string email,string password)
         {
             // check user email_id  is exist or not in the  table
@@ -104,7 +111,12 @@ namespace API_Project.Services
             
         }
         
-        // used for get the passwaord from database 
+        /// <summary>
+        /// used for get the passwaord from database 
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        /// <exception cref="UserNotFound"></exception>
         public string ForgetPassword(string email)
         {
             // check user email_id  is exist or not in the  table
@@ -130,8 +142,16 @@ namespace API_Project.Services
         }
 
 
-        // This Method use for Creating The order
-        //Taking  OrderPizza Class object "order"  as parameter 
+        /// <summary>
+        /// This Method use for Creating The 
+        /// Taking  OrderPizza Class object "order"  as parameter
+        /// </summary>
+        /// <param name="order"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="NullPointerException"></exception>
+        /// <exception cref="MenuNotFound"></exception>
+        
         public string CreateOrder(OrderPizza order)
         {
 
@@ -189,7 +209,12 @@ namespace API_Project.Services
             return OrderDetails.Order_Id;
         }
 
-        // this methos for track the order status 
+        /// <summary>
+        /// this methos for track the order status 
+        /// </summary>
+        /// <param name="orderId"></param>
+        /// <returns></returns>
+        /// <exception cref="NullPointerException"></exception>
         public ICollection<OrderDetails> TrackOrder(string orderId)
         {
             // fetcing details from LoginUser documnet
@@ -211,7 +236,12 @@ namespace API_Project.Services
             return details; 
         }
 
-        // this method used for ViewOrderHistory 
+        /// <summary>
+        /// this method used for ViewOrderHistory 
+        /// </summary>
+        /// <param name="orderId"></param>
+        /// <returns></returns>
+        /// <exception cref="NullPointerException"></exception>
         public ICollection<OrderDetails> ViewOrderHistory(string orderId)
         {
             // fetcing details from LoginUser documnet

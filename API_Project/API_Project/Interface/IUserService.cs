@@ -1,6 +1,4 @@
 ﻿using API_Project.Models;
-using System.Data.SqlTypes;
-using System.Net.NetworkInformation;
 
 namespace API_Project.Interface
 {
